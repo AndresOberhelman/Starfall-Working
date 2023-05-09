@@ -38,10 +38,29 @@ public class MeleeAttack : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRadius);
         foreach (Collider2D hit in hits)
         {
-            if (hit.gameObject.tag == "Enemy")
-            {
-                hit.gameObject.GetComponent<DumbEnemySys1>().TakeDamage(damage);
-            }
+        DumbEnemySys1 denemy = hit.GetComponent<DumbEnemySys1>();
+        if(denemy != null)
+        {
+            denemy.TakeDamage(damage);
+        } 
+        DumbEnemyShooter denemyshoot = hit.GetComponent<DumbEnemyShooter>();
+        if(denemyshoot != null)
+        {
+            denemyshoot.TakeDamage(damage);
+        } 
+        BossRed denemyboss = hit.GetComponent<BossRed>();
+        if(denemyboss != null)
+        {
+            denemyboss.TakeDamage(damage);
+        }
+        
+
+
+
+            // if (hit.gameObject.tag == "Enemy")
+            // {
+            //     hit.gameObject.GetComponent<DumbEnemySys1>().TakeDamage(damage);
+            // }
         }
 
         yield return new WaitForSeconds(attackDuration);
